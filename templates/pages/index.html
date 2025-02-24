@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block navbar %}{% include "components/navbar.html" %}{% endblock %}
+
+{% block contents %}
+<section id="home" class="relative bg-cover bg-center h-screen" style="background-image: url('back.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 flex items-center justify-center text-center text-white h-full px-6">
+    <div>
+        <h1 class="text-4xl font-bold leading-tight mb-4">Tampil Stylish Dengan Brand Pria</h1>
+        <p class="text-xl mb-6">Fashion terkini, kualitas terbaik, untuk penampilan sempurna.</p>
+        <a href="#produk" class="bg-blue-600 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-700">Lihat Produk</a>
+    </div>
+    </div>
+</section>
+
+<!-- Produk Section -->
+<section id="produk" class="py-16 bg-blue-500">
+ <div class="max-w-7xl mx-auto px-6">
+ <h2 class="text-3xl font-bold text-center text-blue-500 mb-8 border-4 bg-gray-900 p-4 rounded-lg">Produk Terbaru</h2>
+   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+     {% for item in product %}
+     <div class="border rounded-lg overflow-hidden shadow-lg">
+       <img src="{{ item.gambar.url}}" alt="Produk 1" class="w-full h-556 object-cover">
+       <form method="POST" action="{% url 'add_to_cart' product_id=item.id %}" class="p-6">
+        {% csrf_token %}
+         <h3 class="text-xl font-semibold text-black-800 mb-2">{{item.nama}}</h3>
+         <p class="text-black-600 mb-4">{{ item.deskripsi}}</p>
+         <p>Rp. {{item.harga}}</p>
+         <button type="submit" class="mt-4 inline-block text-center text-white bg-green-500 hover:bg-green-700 py-2 px-6 rounded-lg transition duration-300 flex items-center justify-center">MASUKKAN KERANJANG</button>
+       </form>
+     </div>
+     {% endfor %}
+ </div>
+</section>
+
+
+
+{% endblock %}

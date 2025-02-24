@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+      <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">daftar</h2>
+
+      <form action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
+        <!-- Email Field -->
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700">Name</label>
+          {{ form.username}}
+        </div>
+       
+        <div class="mb-6">
+          <label for="email" class="block text-gray-700">Email</label>
+          {{ form.email }}
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-6">
+          <label for="password1" class="block text-gray-700">Password</label>
+          {{ form.password1}}
+        </div>
+
+        <div class="mb-6">
+          <label for="password1" class="block text-gray-700">Confirm Password</label>
+          {{ form.password2}}
+        </div>
+
+        <!-- Remember me and Forgot Password -->
+        <div class="mb-4 flex items-center justify-between">
+          <label class="inline-flex items-center text-gray-700">
+          </label>
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Daftar
+        </button>
+      </form>
+
+     
+      </div>
+    </div>
+
+</div>
+{% endblock %}

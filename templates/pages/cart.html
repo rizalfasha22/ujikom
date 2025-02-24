@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block navbar %} {% include "components/navbar.html" %}{% endblock %}
+
+{% block midtrans %}
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{client_key}}"></script>
+
+{% endblock %}
+
+{% block contents %}
+<div class="max-w-3xl w-full bg-white p-9 rounded-lg shadow-lg mt-10">
+    <div class="space-y-4">
+        {% for item in cart %}
+        <div class="flex items-center bg-gray-50 p-4 rounded-lg shadow-sm">
+            <img src="{{ item.image}}" alt="Produk" class="w-20 h-20 rounded-md">
+                   
+            <div class="p-4 border-b border-gray-300 flex-1">
+                <h2 class="text-lg font-semibold text-gray-900">{{item.name}}</h2>
+                <p class="text-gray-500">Kategori: {{ item.category}}</p>
+            </div>
+   
+            <form method="POST" action="{% url 'remove_from_cart' product_id=item.id %}" class="flex items-center">
+                {% csrf_token %}
+                <input type="number" value="{{ item.quantity}}" min="1" max="20" class="w-20 p-2 border-2 border-gray-300 rounded-md 
+                    focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 
+                    hover:border-gray-500 transition duration-300"/>
+                <button class="text-white border border-red-500 font-semibold rounded-md bg-red-500 px-6 py-2 text-base hover:bg-red-600 hover:text-white transition duration-300">Hapus</button>
+            </form>
+        </div>
+        {% endfor %}
+   
+           <!-- Bagian Total & Tombol -->
+        <div class="flex items-center justify-between mt-4">
+            <p class="text-xl font-semibold border-2 border-gray-500 rounded-md p-2">Total: Rp {{total_price}}</p>
+   
+            <div class="flex space-x-2">
+                   <!-- Tombol Checkout -->
+                <button id="checkout" type="button" class="bg-blue-500 text-white px-6 py-2 text-base font-semibold rounded-md 
+                       hover:bg-blue-600 transition duration-300">Beli SEKARANG</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var checkoutBtn = document.getElementById("checkout");
+    checkoutBtn.onclick = function(){
+      console.log('opening snap popup:');
+      
+      snap.pay("{{ token }}", {
+        onSuccess: function(result) {
+            alert("pembayaran berhasil");
+        },
+        onPending: function(result) {
+            alert("menunggu");
+        },
+        onError: function() {
+          console.log("Payment error");
+        }
+      });
+      // For more advanced use, refer to: https://snap-docs.midtrans.com/#snap-js
+  
+    }
+</script>
+{% endblock %}

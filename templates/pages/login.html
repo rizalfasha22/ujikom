@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block contents %}
+<div class="flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Login</h2>
+
+    <p class="text-red-500 text-center mb-4"></p>
+    <form action="{% url 'signin' %}" method="POST">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="nama" class="block text-gray-700">Name</label>
+        {{ form.username}}
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700">Password</label>
+        {{ form.password }}
+      </div>
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-600">
+        Don't have an account?
+        <a href="{% url 'signup'%}" class="text-blue-500 hover:text-blue-700"
+          >Sign up</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

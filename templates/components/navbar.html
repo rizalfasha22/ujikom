@@ -1,0 +1,43 @@
+{% load static %}
+<header class="flex justify-between items-center p-4 bg-gray-900">
+  <img
+    alt="AKMJ SHOP"
+    class="h-8"
+    height="50"
+    src="https://storage.googleapis.com/a1aa/image/RwxWu3l1swphLBR3L7jFVNcKbBrKG6SO5s_Ag8M-d98.jpg"
+    width="100"
+  />
+  <h2 class="text-center text-blue-500 text-2xl font-bold mb-4">AKMJ SHOP</h2>
+
+  <nav class="space-x-4">
+    <div class="space-x-4 text-sm">
+      <a
+        href="{% url 'index'%}"
+        class="text-sm text-blue-500 hover:bg-green-700 transition"
+        >HOME</a
+      >
+      <a
+        href="{% url 'product' %}"
+        class="text-sm text-blue-500 hover:bg-green-700 transition"
+        >SHOP</a
+      >
+      {% if not user.is_authenticated %}<a
+        href="{% url 'signin' %}"
+        class="text-sm text-blue-500 hover:bg-green-700 transition"
+        >LOGIN</a
+      >{% endif %}
+      <button
+        onclick="searchFunction()"
+        class="p-2 rounded-lg hover:bg-green-700 transition"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+
+      <a
+        href="{% url 'cart'%}"
+        class="p-2 rounded-lg text-blue-500 hover:bg-green-700 transition"
+        ><i class="fas fa-shopping-cart"></i
+      ></a>
+    </div>
+  </nav>
+</header>
